@@ -16,7 +16,7 @@ export default function AuthForm(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        router.push("/");
+        router.push("/homepage");
     }
 
     return (
