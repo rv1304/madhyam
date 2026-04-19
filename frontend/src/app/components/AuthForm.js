@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "../auth.module.css";
@@ -11,12 +12,31 @@ export default function AuthForm(props) {
     var buttonText = props.buttonText;
     var footerText = props.footerText;
     var footerLink = props.footerLink;
+    var onSubmit = props.onSubmit; // async (data: object) => void
 
     var router = useRouter();
+    var [loading, setLoading] = useState(false);
+    var [error, setError] = useState("");
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        router.push("/homepage");
+        setError("");
+        setLoading(true);
+
+        // Collect all field values by their id
+        var formData = new FormData(e.target);
+        var data = {};
+        fields.forEach(function (field) {
+            data[field.id] = formData.get(field.id);
+        });
+
+        try {
+            await onSubmit(data, router);
+        } catch (err) {
+            setError(err.message || "Something went wrong. Please try again.");
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -42,12 +62,18 @@ export default function AuthForm(props) {
                                     type={field.type}
                                     placeholder={field.placeholder}
                                     className={styles.input}
+                                    required
                                 />
                             </div>
                         );
                     })}
-                    <button type="submit" className={styles.button}>
-                        {buttonText}
+                    {error && (
+                        <p style={{ color: "#e03e3e", fontSize: "0.875rem", marginBottom: "0.5rem" }}>
+                            {error}
+                        </p>
+                    )}
+                    <button type="submit" className={styles.button} disabled={loading}>
+                        {loading ? "Please wait…" : buttonText}
                     </button>
                 </form>
                 <div className={styles.divider}>or</div>

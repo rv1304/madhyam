@@ -1,0 +1,45 @@
+### 1️⃣ Get all users
+GET http://localhost:3001/users
+
+
+### 2️⃣ Create user (Signup)
+POST http://localhost:3001/users
+Content-Type: application/json
+
+{
+    "name": "Tanish",
+    "password": "password"
+}
+
+
+### 3️⃣ Login (Get tokens)
+POST http://localhost:3001/login
+Content-Type: application/json
+
+{
+    "name": "Tanish",
+    "password": "password"
+}
+
+
+### 4️⃣ Refresh Access Token
+POST http://localhost:3001/token
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVGFuaXNoIiwiaWF0IjoxNzc0Mjg4Mzc0fQ.9LoOUzGH80Qb_HUj64s6iVuUQrOgyXYwan4oajIERfg"
+}
+
+
+### 5️⃣ Access Protected Route
+GET http://localhost:3001/protected
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVGFuaXNoIiwiaWF0IjoxNzc0Mjg4NDEzLCJleHAiOjE3NzQyODkwMTN9.-cxLSEwIJ9ahJGzDLWV5sqD_2cTWx0YnjtI0OxGpWmw
+
+
+### 6️⃣ Logout (Invalidate refresh token)
+DELETE http://localhost:3001/logout
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVGFuaXNoIiwiaWF0IjoxNzc0Mjg4NDkwfQ.Dp2wtmbhOMBMBKQRdel1aqXB3oR7eqKedhDZl1xnhzo"
+}

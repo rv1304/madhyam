@@ -1,41 +1,21 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Root-level .gitignore for Madhyam monorepo
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# Environment variables (NEVER commit secrets)
+.env
+.env.local
+.env.*.local
 
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
+# Node
+node_modules/
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
+yarn-error.log
 
-# env files (can opt-in for committing if needed)
-.env*
+# Next.js
+frontend/.next/
+frontend/out/
 
-# vercel
-.vercel
+# macOS
+.DS_Store
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Docker
+docker-compose.override.yml
